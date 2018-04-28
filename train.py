@@ -22,8 +22,7 @@ y_test = np_utils.to_categorical(y_test)
 num_classes = y_test.shape[1]
 
 model = Sequential()
-model.add(Dense(num_pixels, input_dim=num_pixels, kernel_initializer='normal', activation='relu'))
-model.add(Dense(num_classes, kernel_initializer='normal', activation='softmax'))
+model.add(Dense(num_classes, input_dim=num_pixels, activation='softmax'))
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 # Fit the model
