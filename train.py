@@ -32,7 +32,7 @@ model.compile(loss='categorical_crossentropy', optimizer=optimizer, metrics=['ac
 # Fit the model
 model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=10, batch_size=200, verbose=2)
 
-model.save("/tmp/model.h5")
+model.save("/tmp/models/appaliv2.h5")
 
 scores = model.evaluate(X_test, y_test, verbose=0)
 print("Baseline Error: %.2f%%" % (100-scores[1]*100))

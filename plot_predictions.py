@@ -3,14 +3,16 @@ import matplotlib.pyplot as plt
 from keras.models import load_model
 import os
 
-PATH = "/tmp/draw"
+DRAW_PATH = "/tmp/draw"
 
-model = load_model("/tmp/model.h5")
+MODEL_PATH = "/tmp/models"
 
-groups = [group for group in os.listdir(PATH)]
+models = {model: load_model(os.path.join(MODEL_PATH, model)) for model in os.listdir(MODEL_PATH)}
+
+groups = [group for group in os.listdir(DRAW_PATH)]
 
 for ix, group in enumerate(groups):
-    path = os.path.join(PATH, group)
+    path = os.path.join(DRAW_PATH, group)
     for i in os.listdir(path):
         plt.subplot(len(groups), 10, ix * 10 + int(i) + 1)
         X = np.loadtxt(os.path.join(path, i), dtype=int)
@@ -18,8 +20,11 @@ for ix, group in enumerate(groups):
         X = np.array([X])
         num_pixels = X.shape[1] * X.shape[2]
         X = X.reshape(1, num_pixels)
-        y = np.argmax(model.predict(X)[0])
-        plt.title(str(y))
+        res = []
+        for model in models:
+            y = np.argmax(models[model].predict(X)[0])
+            res.append(model + ":" + str(y))
+        plt.title("\n".join(res), fontsize=8)
 
 # show the plot
 plt.show()
