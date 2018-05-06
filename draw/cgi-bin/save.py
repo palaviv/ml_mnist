@@ -27,7 +27,7 @@ try:
         path = os.path.join("/tmp/draw", group)
         os.makedirs(path, exist_ok=True)
 
-        for i in range(2):
+        for i in range(10):
             img_str = re.search('img{},data:image/png;base64,(.*),img{}'.format(i, i+1), data).group(1)
             image_bytes = io.BytesIO(base64.b64decode(img_str))
             im = Image.open(image_bytes)
