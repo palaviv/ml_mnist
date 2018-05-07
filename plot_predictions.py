@@ -18,8 +18,7 @@ for ix, group in enumerate(groups):
         X = np.loadtxt(os.path.join(path, i), dtype=int)
         plt.imshow(X, cmap=plt.get_cmap('gray'))
         X = np.array([X])
-        num_pixels = X.shape[1] * X.shape[2]
-        X = X.reshape(1, num_pixels)
+        X = X.reshape(1, 28, 28, 1)
         res = []
         for model in models:
             y = np.argmax(models[model].predict(X)[0])
